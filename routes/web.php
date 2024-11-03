@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('sections', \App\Http\Controllers\SectionController::class);
     Route::resource('branches', \App\Http\Controllers\BranchController::class);
 
+    Route::get('sections/{section}/branches', [\App\Http\Controllers\SectionController::class, 'branchIndex']);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
