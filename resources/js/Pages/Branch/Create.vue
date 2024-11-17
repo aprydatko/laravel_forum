@@ -10,6 +10,9 @@
                     <option value="null" selected disabled>Выберите раздел</option>
                     <option v-for="section in sections" :value="section.id">{{ section.title }}</option>
                 </select>
+                <div v-if="this.$page.props.errors.section_id" class="text-sm text-red-600">
+                    {{ this.$page.props.errors.section_id }}
+                </div>
             </div>
             <div class="mb-4" v-if="branches.length > 0">
                 <select class="border-gray-300 p-2 w-1/4" v-model="parent_id">
@@ -19,6 +22,9 @@
             </div>
             <div class="mb-4">
                 <input type="text" placeholder="Заголовок" v-model="title" class="border-gray-300 p-2 w-1/4" />
+                <div v-if="this.$page.props.errors.title" class="text-sm text-red-600">
+                    {{ this.$page.props.errors.title }}
+                </div>
             </div>
             <div>
                 <a
