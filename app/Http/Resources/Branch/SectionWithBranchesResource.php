@@ -17,7 +17,7 @@ class SectionWithBranchesResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'branches' => BranchResource::collection($this->branches)->resolve()
+            'branches' => BranchResource::collection($this->parentBranches)->resolve()
         ];
     }
 }
