@@ -95,7 +95,8 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $section->delete();
+        return redirect()->back();
     }
 
     public function branchIndex(Section $section)
