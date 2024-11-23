@@ -7,8 +7,8 @@ use App\Http\Requests\Section\UpdateRequest;
 use App\Http\Resources\Branch\BranchResource;
 use App\Http\Resources\Branch\SectionWithBranchesResource;
 use App\Http\Resources\Section\SectionResource;
+use App\Models\Branch;
 use App\Models\Section;
-use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
@@ -102,5 +102,11 @@ class SectionController extends Controller
     public function branchIndex(Section $section)
     {
         return BranchResource::collection($section->branches)->resolve();
+    }
+
+    public function branchIndexExcept(Section $section, Branch $branch)
+    {
+        $branches = $section->branches()->where('id', '!=', $branch->id)->get();
+        return BranchResource::collection($branches)->resolve();
     }
 }
