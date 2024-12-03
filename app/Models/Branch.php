@@ -12,4 +12,14 @@ class Branch extends Model
     use SoftDeletes;
 
     protected $guarded = false;
+
+    public function children()
+    {
+        return $this->hasMany(Branch::class, 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Branch::class, 'parent_id', 'id');
+    }
 }

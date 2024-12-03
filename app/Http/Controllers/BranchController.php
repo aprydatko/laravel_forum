@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Branch\StoreRequest;
 use App\Http\Requests\Branch\UpdateRequest;
 use App\Http\Resources\Branch\BranchResource;
+use App\Http\Resources\Branch\BranchWithChildrenResource;
 use App\Http\Resources\Section\SectionResource;
 use App\Models\Branch;
 use App\Models\Section;
@@ -55,7 +56,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        $branch = BranchResource::make($branch)->resolve();
+        $branch = BranchWithChildrenResource::make($branch)->resolve();
         return inertia('Branch/Show', compact('branch'));
     }
 
