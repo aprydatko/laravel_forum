@@ -32,9 +32,13 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('sections', \App\Http\Controllers\SectionController::class);
     Route::resource('branches', \App\Http\Controllers\BranchController::class);
+    Route::resource('themes', \App\Http\Controllers\ThemeController::class);
 
     Route::get('sections/{section}/branches', [\App\Http\Controllers\SectionController::class, 'branchIndex']);
     Route::get('sections/{section}/branches_except/{branch}', [\App\Http\Controllers\SectionController::class, 'branchIndexExcept']);
+
+    Route::get('branches/{branch}/themes/create', [\App\Http\Controllers\BranchController::class, 'themeCreate'])
+        ->name('branches.themes.create');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

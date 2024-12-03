@@ -3,6 +3,7 @@
     <div>
         <div class="flex items-center mb-4">
             <h3 class="text-xl mr-4">{{ branch.title }}</h3>
+            <Link :href="route('branches.themes.create', branch.id)" class="block p-2 mr-4 w-1/6 px-2 py-1 bg-white border border-gray-300 rounded-lg text-center">+ Тема</Link>
         </div>
         <div>
             <div v-for="branch in branch.children" class="flex items-center">
