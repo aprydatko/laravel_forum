@@ -22,4 +22,9 @@ class Branch extends Model
     {
         return $this->belongsTo(Branch::class, 'parent_id', 'id');
     }
+
+    public function themes()
+    {
+        return $this->hasMany(Theme::class, 'branch_id', 'id');
+    }
 }
