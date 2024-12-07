@@ -27,7 +27,7 @@
     import {Link} from "@inertiajs/vue3";
 
     export default {
-        name: 'Create',
+        name: 'Edit',
         layout: MainLayout,
         props: ['theme'],
         components: {

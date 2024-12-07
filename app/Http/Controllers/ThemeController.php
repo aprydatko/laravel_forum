@@ -52,7 +52,9 @@ class ThemeController extends Controller
      */
     public function show(Theme $theme)
     {
-        //
+        $theme = ThemeResource::make($theme)->resolve();
+
+        return inertia('Theme/Show', compact('theme'));
     }
 
     /**
