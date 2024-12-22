@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Theme\StoreRequest;
-use App\Http\Requests\Theme\UpdateRequest;
-use App\Http\Resources\Theme\ThemeResource;
-use App\Http\Resources\Theme\ThemeWithMessageResource;
-use App\Models\Theme;
+use App\Http\Requests\Message\StoreRequest;
+use App\Http\Requests\Message\UpdateRequest;
+use App\Http\Resources\Message\MessageResource;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
-class ThemeController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,60 +39,54 @@ class ThemeController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        Theme::create($data);
+        $data['user_id'] = auth()->id();
+        $message = Message::create($data);
 
-        return redirect()->route('branches.show', $data['branch_id']);
+        return MessageResource::make($message)->resolve();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Theme  $theme
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Theme $theme)
+    public function show(Message $message)
     {
-        $theme = ThemeWithMessageResource::make($theme)->resolve();
-
-        return inertia('Theme/Show', compact('theme'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Theme  $theme
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function edit(Theme $theme)
+    public function edit(Message $message)
     {
-        $theme = ThemeResource::make($theme)->resolve();
-        return inertia('Theme/Edit', compact('theme'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Theme  $theme
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Theme $theme)
+    public function update(UpdateRequest $request, Message $message)
     {
-        $data = $request->validated();
-        $theme->update($data);
-
-        return redirect()->route('branches.show', $theme->branch_id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Theme  $theme
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Theme $theme)
+    public function destroy(Message $message)
     {
-        $theme->delete();
-        return redirect()->route('branches.show', $theme->branch_id);
+        //
     }
 }
