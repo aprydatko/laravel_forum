@@ -41,9 +41,15 @@ Route::middleware('auth')->group(function () {
     Route::get('branches/{branch}/themes/create', [\App\Http\Controllers\BranchController::class, 'themeCreate'])
         ->name('branches.themes.create');
 
+    Route::get('/users/personal', [\App\Http\Controllers\UserController::class, 'personal'])
+        ->name('users.personal');
+
+    Route::patch('/users/personal', [\App\Http\Controllers\UserController::class, 'update'])
+        ->name('users.personal');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

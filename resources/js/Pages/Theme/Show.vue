@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="p-4 w-5/6">
-                        <div class="mb-2 italic">
+                        <div class="mb-2 italicrtisan ">
                             <p class="text-sm">{{ message.time }}</p>
                         </div>
                         <div>
