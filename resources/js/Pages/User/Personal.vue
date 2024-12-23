@@ -14,8 +14,8 @@
                 <p class="mb-2">
                     Сменить аватар
                 </p>
-                <a href="#" @click.prevents="this.$refs.avatar_load.click()" class="block w-24 h-24 rounded-full bg-gray-300">
-                    <img v-if="user.avatar_url" :src="user.avatar_url" :alt="user.name" />
+                <a href="#" @click.prevents="this.$refs.avatar_load.click()" class="block w-24 h-24 rounded-full overflow-hidden bg-gray-300">
+                    <img v-if="user.avatar_url" :src="user.avatar_url" :alt="user.name" class="w-24 h-24 block" />
                 </a>
                 <div hidden>
                     <input @change="storeAvatar" ref="avatar_load" type="file">
