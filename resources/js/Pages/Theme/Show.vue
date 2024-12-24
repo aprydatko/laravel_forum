@@ -24,6 +24,11 @@
                                 <p v-html="message.content"></p>
                             </div>
                             <div class="flex items-center justify-end">
+
+                                <div class="mr-4">
+                                    <a @click.prevent="quote(message.content)" class="text-sm rounded-lg bg-sky-600 border border-sky-700 inline-block py-2 px-3 text-center text-white" href="#">Цитировать</a>
+                                </div>
+
                                 <div class="flex items-center">
                                     <span class="mr-2">
                                         {{ message.likes }}
@@ -79,8 +84,8 @@
                     content: this.$refs.editor.innerHTML,
                     theme_id: this.theme.id,
                 }).then((res) => {
-
                     this.$refs.editor.innerHTML = '';
+                    this.theme.messages.push(res.data)
                 });
             },
             toggleLike(message) {
@@ -88,6 +93,17 @@
                     .then(res => {
                         message.is_liked = !message.is_liked;
                     })
+            },
+            quote(content) {
+
+                if (window.getSelection().toString()) {
+                    content = window.getSelection().toString()
+                }
+
+                const editor = this.$refs.editor;
+                const oldText = editor.innerHTML;
+                const quote = `${oldText} <br /><blockquote>${content}</blockquote><br />`;
+                editor.innerHTML = quote;
             }
         },
         data() {
@@ -98,3 +114,11 @@
     }
 </script>
 
+<style>
+blockquote {
+    display: block;
+    padding: 4px;
+    border-left: 4px solid #a0aec0;
+    background-color: #f6f6f6;
+}
+</style>
