@@ -24,7 +24,10 @@
                                 <p v-html="message.content"></p>
                             </div>
                             <div class="flex items-center justify-end">
-                                <div>
+                                <div class="flex items-center">
+                                    <span class="mr-2">
+                                        {{ message.likes }}
+                                    </span>
                                     <a @click.prevent="toggleLike(message)" href="#">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
