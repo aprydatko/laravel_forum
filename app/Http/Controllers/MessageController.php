@@ -7,6 +7,7 @@ use App\Http\Requests\Message\UpdateRequest;
 use App\Http\Resources\Message\MessageResource;
 use App\Models\Image;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -47,7 +48,9 @@ class MessageController extends Controller
         $ids = Str::of($data['content'])->matchAll('/@[\d]+/')->unique()->transform(
             function ($id) {
                 return Str::of($id)->replaceMatches('/@/', '')->value();
-            });
+            })->filter(function ($id) {
+                return User::where('id', $id)->exists();
+        });
 
         $imgIds = Str::of($data['content'])->matchAll('/img_id=[\d]+/')->unique()->transform(
             function ($id) {
