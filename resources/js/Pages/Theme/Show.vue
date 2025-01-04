@@ -16,14 +16,21 @@
                         </div>
                     </div>
                     <div class="p-4 w-5/6">
-                        <div class="mb-2 italicrtisan ">
+                        <div class="mb-2 italic">
                             <p class="text-sm">{{ message.time }}</p>
                         </div>
                         <div>
+                            <div class="mb-4" v-if="message.is_not_solved_complaint">
+                                <p class="w-full bg-red-100 border border-red-200 p-2">Ваша жалоба в рассмотрении.</p>
+                            </div>
                             <div class="mb-4">
                                 <p v-html="message.content"></p>
                             </div>
                             <div class="flex items-center justify-end">
+
+                                <div class="mr-4">
+                                    <a @click.prevent="openComplaint(message)" class="text-sm rounded-lg bg-white border border-red-800 inline-block py-2 px-3 text-center text-red-800" href="#">Пожаловаться</a>
+                                </div>
 
                                 <div class="mr-4">
                                     <a @click.prevent="quote(message.content)" class="text-sm rounded-lg bg-sky-600 border border-sky-700 inline-block py-2 px-3 text-center text-white" href="#">Цитировать</a>
@@ -50,6 +57,10 @@
                                         </svg>
                                     </a>
                                 </div>
+                            </div>
+                            <div class="flex pt-4" v-if="message.is_complaint">
+                                <input v-model="message.body" class="p-2 w-5/6 rounded-r-none rounded-lg border border-gray-300 w-full" type="text" placeholder="Ваша жалоба">
+                                <a @click.prevent="complaint(message)" class="block w-1/6 rounded-l-none text-center bg-red-800 text-white p-2 rounded-lg" href="#">Отправить</a>
                             </div>
                         </div>
                     </div>
@@ -116,6 +127,18 @@
                 const editor = this.$refs.editor;
                 const oldText = editor.innerHTML;
                 editor.innerHTML = `${oldText} ${title} <blockquote>${message.content}</blockquote><br />`;
+            },
+            openComplaint(message) {
+                message.body = '';
+                message.is_complaint = !message.is_complaint;
+            },
+            complaint(message) {
+                axios.post(`/messages/${message.id}/complaints`, {
+                    body: message.body,
+                    theme_id: message.theme_id
+                }).then(res => {
+                    message.is_not_solved_complaint = res.data.is_not_solved_complaint;
+                })
             }
         },
         data() {
