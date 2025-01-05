@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/complaints', [\App\Http\Controllers\Admin\ComplaintController::class, 'index'])
         ->name('admin.complaints.index');
 
+    Route::patch('/admin/complaints/{complaint}', [\App\Http\Controllers\Admin\ComplaintController::class, 'update'])
+        ->name('admin.complaints.update');
+
     Route::patch('/users/personal', [\App\Http\Controllers\UserController::class, 'update'])
         ->name('users.personal');
 
